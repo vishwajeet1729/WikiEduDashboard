@@ -1,0 +1,312 @@
+warning: in the working copy of 'db/schema.rb', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'setup/color-helpers.sh', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'setup/deb-setup.sh', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/db/schema.rb b/db/schema.rb[m
+[1mindex 294757de0..05af55183 100644[m
+[1m--- a/db/schema.rb[m
+[1m+++ b/db/schema.rb[m
+[36m@@ -11,15 +11,25 @@[m
+ # It's strongly recommended that you check this file into your version control system.[m
+ [m
+ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+[31m-  create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "admin_course_notes", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+[32m+[m[32m    t.integer "courses_id"[m
+[32m+[m[32m    t.string "title"[m
+[32m+[m[32m    t.text "text"[m
+[32m+[m[32m    t.string "edited_by"[m
+[32m+[m[32m    t.datetime "created_at", null: false[m
+[32m+[m[32m    t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.index ["courses_id"], name: "index_admin_course_notes_on_courses_id"[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  create_table "alerts", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "course_id"[m
+     t.integer "user_id"[m
+     t.integer "article_id"[m
+     t.integer "revision_id"[m
+     t.string "type"[m
+[31m-    t.datetime "email_sent_at"[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.datetime "email_sent_at", precision: nil[m
+[32m+[m[32m    t.datetime "created_at", precision: nil, null: false[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil, null: false[m
+     t.text "message"[m
+     t.integer "target_user_id"[m
+     t.integer "subject_id"[m
+[36m@@ -31,25 +41,15 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["target_user_id"], name: "index_alerts_on_target_user_id"[m
+     t.index ["user_id"], name: "index_alerts_on_user_id"[m
+   end[m
+[31m-  [m
+[31m-  create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|[m
+[31m-    t.integer "courses_id"[m
+[31m-    t.string "title"[m
+[31m-    t.text "text"[m
+[31m-    t.string "edited_by"[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[31m-    t.index ["courses_id"], name: "index_admin_course_notes_on_courses_id"[m
+[31m-  end[m
+[31m-  [m
+[31m-  create_table "articles", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m
+[32m+[m[32m  create_table "articles", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.string "title"[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.date "views_updated_at"[m
+     t.integer "namespace"[m
+     t.string "rating"[m
+[31m-    t.datetime "rating_updated_at"[m
+[32m+[m[32m    t.datetime "rating_updated_at", precision: nil[m
+     t.boolean "deleted", default: false[m
+     t.string "language", limit: 10[m
+     t.float "average_views"[m
+[36m@@ -62,9 +62,9 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"[m
+   end[m
+ [m
+[31m-  create_table "articles_courses", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m  create_table "articles_courses", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.integer "article_id"[m
+     t.integer "course_id"[m
+     t.bigint "view_count", default: 0[m
+[36m@@ -77,18 +77,18 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["course_id"], name: "index_articles_courses_on_course_id"[m
+   end[m
+ [m
+[31m-  create_table "assignment_suggestions", charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "assignment_suggestions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.text "text"[m
+     t.bigint "assignment_id"[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.datetime "created_at", precision: nil, null: false[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil, null: false[m
+     t.integer "user_id"[m
+     t.index ["assignment_id"], name: "index_assignment_suggestions_on_assignment_id"[m
+   end[m
+ [m
+[31m-  create_table "assignments", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m  create_table "assignments", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.integer "user_id"[m
+     t.integer "course_id"[m
+     t.integer "article_id"[m
+[36m@@ -101,12 +101,12 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["course_id"], name: "index_assignments_on_course_id"[m
+   end[m
+ [m
+[31m-  create_table "blocks", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "blocks", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "kind"[m
+     t.text "content"[m
+     t.integer "week_id"[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.string "title"[m
+     t.integer "order"[m
+     t.date "due_date"[m
+[36m@@ -115,76 +115,76 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["week_id"], name: "index_blocks_on_week_id"[m
+   end[m
+ [m
+[31m-  create_table "campaigns", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "campaigns", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.string "title"[m
+     t.string "slug"[m
+     t.string "url"[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.text "description"[m
+[31m-    t.datetime "start"[m
+[31m-    t.datetime "end"[m
+[32m+[m[32m    t.datetime "start", precision: nil[m
+[32m+[m[32m    t.datetime "end", precision: nil[m
+     t.text "template_description"[m
+     t.string "default_course_type"[m
+     t.string "default_passcode"[m
+     t.boolean "register_accounts", default: false[m
+   end[m
+ [m
+[31m-  create_table "campaigns_courses", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "campaigns_courses", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "campaign_id"[m
+     t.integer "course_id"[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.index ["course_id", "campaign_id"], name: "index_campaigns_courses_on_course_id_and_campaign_id", unique: true[m
+   end[m
+ [m
+[31m-  create_table "campaigns_survey_assignments", id: false, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "campaigns_survey_assignments", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "survey_assignment_id"[m
+     t.integer "campaign_id"[m
+     t.index ["campaign_id"], name: "index_campaigns_survey_assignments_on_campaign_id"[m
+     t.index ["survey_assignment_id"], name: "index_campaigns_survey_assignments_on_survey_assignment_id"[m
+   end[m
+ [m
+[31m-  create_table "campaigns_users", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "campaigns_users", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "campaign_id"[m
+     t.integer "user_id"[m
+     t.integer "role", default: 0[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.datetime "created_at", precision: nil, null: false[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil, null: false[m
+     t.index ["campaign_id"], name: "index_campaigns_users_on_campaign_id"[m
+     t.index ["user_id"], name: "index_campaigns_users_on_user_id"[m
+   end[m
+ [m
+[31m-  create_table "categories", charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "categories", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "wiki_id"[m
+     t.text "article_titles", size: :medium[m
+     t.string "name"[m
+     t.integer "depth", default: 0[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.datetime "created_at", precision: nil, null: false[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil, null: false[m
+     t.string "source", default: "category"[m
+     t.index ["name"], name: "index_categories_on_name"[m
+     t.index ["wiki_id", "name", "depth", "source"], name: "index_categories_on_wiki_id_and_name_and_depth_and_source", unique: true[m
+     t.index ["wiki_id"], name: "index_categories_on_wiki_id"[m
+   end[m
+ [m
+[31m-  create_table "categories_courses", charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "categories_courses", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "category_id"[m
+     t.integer "course_id"[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.datetime "created_at", precision: nil, null: false[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil, null: false[m
+     t.index ["category_id"], name: "index_categories_courses_on_category_id"[m
+     t.index ["course_id", "category_id"], name: "index_categories_courses_on_course_id_and_category_id", unique: true[m
+     t.index ["course_id"], name: "index_categories_courses_on_course_id"[m
+   end[m
+ [m
+[31m-  create_table "commons_uploads", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "commons_uploads", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "user_id"[m
+     t.string "file_name", limit: 2000[m
+[31m-    t.datetime "uploaded_at"[m
+[32m+[m[32m    t.datetime "uploaded_at", precision: nil[m
+     t.integer "usage_count"[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.string "thumburl", limit: 2000[m
+     t.string "thumbwidth"[m
+     t.string "thumbheight"[m
+[36m@@ -192,8 +192,7 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["user_id"], name: "index_commons_uploads_on_user_id"[m
+   end[m
+ [m
+[31m-[m
+[31m-  create_table "course_stats", charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "course_stats", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.text "stats_hash"[m
+     t.integer "course_id"[m
+     t.datetime "created_at", null: false[m
+[36m@@ -201,7 +200,7 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["course_id"], name: "index_course_stats_on_course_id"[m
+   end[m
+ [m
+[31m-  create_table "course_wiki_namespaces", charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "course_wiki_namespaces", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "namespace"[m
+     t.bigint "courses_wikis_id"[m
+     t.datetime "created_at", null: false[m
+[36m@@ -209,10 +208,10 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["courses_wikis_id"], name: "index_course_wiki_namespaces_on_courses_wikis_id"[m
+   end[m
+ [m
+[31m-  create_table "courses", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "courses", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.string "title"[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.datetime "start"[m
+     t.datetime "end"[m
+     t.string "school"[m
+[36m@@ -243,7 +242,7 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.string "syllabus_file_name"[m
+     t.string "syllabus_content_type"[m
+     t.bigint "syllabus_file_size"[m
+[31m-    t.datetime "syllabus_updated_at"[m
+[32m+[m[32m    t.datetime "syllabus_updated_at", precision: nil[m
+     t.integer "home_wiki_id"[m
+     t.integer "recent_revision_count", default: 0[m
+     t.boolean "needs_update", default: false[m
+[36m@@ -256,9 +255,9 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["slug"], name: "index_courses_on_slug", unique: true[m
+   end[m
+ [m
+[31m-  create_table "courses_users", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[31m-    t.datetime "created_at"[m
+[31m-    t.datetime "updated_at"[m
+[32m+[m[32m  create_table "courses_users", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil[m
+     t.integer "course_id"[m
+     t.integer "user_id"[m
+     t.integer "character_sum_ms", default: 0[m
+[36m@@ -277,77 +276,77 @@[m [mActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do[m
+     t.index ["user_id"], name: "index_courses_users_on_user_id"[m
+   end[m
+ [m
+[31m-  create_table "courses_wikis", charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "courses_wikis", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.integer "course_id"[m
+     t.integer "wiki_id"[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.datetime "created_at", precision: nil, null: false[m
+[32m+[m[32m    t.datetime "updated_at", precision: nil, null: false[m
+     t.index ["course_id", "wiki_id"], name: "index_courses_wikis_on_course_id_and_wiki_id", unique: true[m
+     t.index ["course_id"], name: "index_courses_wikis_on_course_id"[m
+     t.index ["wiki_id"], name: "index_courses_wikis_on_wiki_id"[m
+   end[m
+ [m
+[31m-  create_table "faqs", charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "faqs", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.datetime "created_at", null: false[m
+     t.datetime "updated_at", null: false[m
+     t.string "title", null: false[m
+     t.text "content"[m
+   end[m
+ [m
+[31m-  create_table "feedback_form_responses", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "feedback_form_responses", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|[m
+     t.string "subject"[m
+     t.text "body"[m
+     t.integer "user_id"[m
+[31m-    t.datetime "created_at"[m
+[32m+[m[32m    t.datetime "created_at", precision: nil[m
+   end[m
+ [m
+[31m-  create_table "question_group_conditionals", id: :integer, charset: "utf8mb4", force: :cascade do |t|[m
+[32m+[m[32m  create_table "que
